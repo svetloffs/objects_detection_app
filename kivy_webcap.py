@@ -141,6 +141,8 @@ class CamApp(App):
             # out.write(image)
             # if cv2.waitKey(10) & 0xFF == ord('q'):
             #     break
+        cv2.imwrite("./application_data/verification_images/img.jpg", image)
+        
         # else:
         #     break
         # Detection Threshold: Metric above which a prediciton is considered positive 
@@ -152,12 +154,16 @@ class CamApp(App):
         # self.verification_label.text = 'Verified' if verified else 'Unverified'
 
         # Log out details
-        Logger.info(f"Result: {results}")
-        Logger.info(f"Detection: {detection}")
-        # Logger.info(f"Verification: {verification}")
-        # Logger.info(f"Verified: {verified}")
-        # return results, verified
-        return image
+        try:
+            Logger.info(f"Class Name: {class_name}")
+            Logger.info(f"Confidence: {confidence}")
+            # Logger.info(f"Verification: {verification}")
+            # Logger.info(f"Verified: {verified}")
+            return image, class_name
+            # return image
+        except Exception as e:
+            print(f"[ERROR] {e}")
+            
     
     def close_application(self, *args):
         # App.get_running_app().stop(self)
